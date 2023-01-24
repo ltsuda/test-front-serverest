@@ -1,0 +1,12 @@
+[flake8]
+ignore = W503
+max-line-length = 100
+max-doc-length = 100
+extend-exclude=
+    cypress
+    playwright
+count = True
+
+
+# Error Codes
+# W503 - Line break occurred before a binary operator

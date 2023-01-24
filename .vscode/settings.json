@@ -1,0 +1,24 @@
+{
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": ["--config=./selenium/pyproject.toml"],
+    "python.languageServer": "Pylance",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--config=./selenium/.flake8"],
+    "python.linting.ignorePatterns": [
+        "**/site-packages/**/*.py",
+        ".vscode/*.py",
+        "cypress/*.py",
+        "playwright/*.py",
+        "*.py"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.rulers": [
+            {
+                "column": 100,
+                "color": "#FFFF00"
+            }
+        ],
+        "editor.codeActionsOnSave": { "source.organizeImports": true }
+    }
+}

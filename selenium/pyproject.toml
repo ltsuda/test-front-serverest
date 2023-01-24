@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "template-project"
+version = "0.1.0"
+description = "Python template project with linter, formatter and pre-commit"
+authors = ["John Doe <johndoe@provider.com>"]
+readme = "README.md"
+packages = [{include = "template_project", from = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = { version = "*", python = ">=3.11,<3.12" }
+isort = { version = "*", python = ">=3.11,<3.12" }
+black = { version = "*", python = ">=3.11,<3.12" }
+selenium = "^4.8.0"
+pytest = "^7.2.1"
+pytest-xdist = "^3.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+target-version = ['py311']
+line-length = 100
+preview = true
+extend-exclude = '''
+/(
+    \.direnv
+    |\.eggs
+    |\.git
+    |\.hg
+    |\.mypy_cache
+    |\.nox
+    |\.tox
+    |\.venv
+    |venv
+    |\.svn
+    |\.ipynb_checkpoints
+    |_build
+    |buck-out
+    |build
+    |dist
+    |cypress
+    |playwright
+    |__pypackages__
+)/
+'''
