@@ -1,4 +1,10 @@
 {
+    "scripts": {
+        "cy:open": "cypress open",
+        "start:backend": "npx serverest -p 3001 --nodoc",
+        "start:frontend": "serve -s ../application/front-build -l 3000",
+        "test:open": "start-test start:backend 3001 start:frontend 3000 cy:open"
+    },
     "devDependencies": {
         "cypress": "^12.3.0",
         "serve": "^14.2.0",
