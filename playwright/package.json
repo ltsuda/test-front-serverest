@@ -8,6 +8,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.30.0",
-    "serve": "^14.2.0"
+    "serve": "^14.2.0",
+    "serverest": "^2.26.6"
   }
 }
