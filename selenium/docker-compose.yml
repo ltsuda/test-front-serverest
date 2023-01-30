@@ -28,6 +28,24 @@ services:
         networks:
             - grid
 
+    backend:
+        image: paulogoncalvesbh/serverest:latest
+        container_name: serverest-backend
+        ports:
+            - 3000:3000
+        networks:
+            - grid
+
+    frontend:
+        build:
+            context: ../application
+            dockerfile: Dockerfile
+        container_name: serverest-frontend
+        ports:
+            - 3001:3001
+        networks:
+            - grid
+
 networks:
     grid:
         name: selenium-grid
