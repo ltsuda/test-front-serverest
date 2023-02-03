@@ -1,13 +1,13 @@
 from contextlib import contextmanager
-from typing import Generator, Tuple
+from typing import Generator, LiteralString, Tuple
 
 import selenium.webdriver.support.expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver, WebElement
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import wait
 
 # Selenium locator (By.identifier, 'selector')
-Locator = Tuple[By, str]
+Locator = Tuple[LiteralString, LiteralString]
 
 
 class CustomSelenium:
@@ -48,11 +48,11 @@ class CustomSelenium:
         yield
         set_explicit_wait(self.explicit_wait_timeout)
 
-    def find_element(self, locator: Locator, should_wait=True) -> WebElement:
+    def find_element(self, locator: Locator, should_wait: bool = True) -> WebElement:
         """Find Selenium Webelement with explicit wait
 
         Args:
-            locator (Locator): Selenium locator tuple (By, selector)
+            locator (Locator): Selenium locator tuple (By.identifier, selector)
             should_wait (bool, optional): Whether to use wait until is visible. Defaults to True.
 
         Returns:
