@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "template-project"
+name = "test-front-serverest"
 version = "0.1.0"
-description = "Python template project with linter, formatter and pre-commit"
-authors = ["John Doe <johndoe@provider.com>"]
+description = "Serverest Frontend Test Automation multi-framework"
+authors = ["Leonardo Tsuda"]
 readme = "README.md"
-packages = [{include = "template_project", from = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
