@@ -20,7 +20,7 @@ class CustomSelenium:
 
     def __init__(self, driver: WebDriver) -> None:
         self._driver: WebDriver = driver
-        self.explicit_wait_timeout: int = self.default_explicit_timeout
+        self._explicit_wait_timeout: int = self.default_explicit_timeout
 
     @contextmanager
     def toggle_explicit_timeout(self, should_wait: bool = True) -> Generator:
@@ -42,11 +42,11 @@ class CustomSelenium:
             """
             if not should_wait:
                 print(f"Setting explicit_wait_timeout to {timeout}")
-                self.explicit_wait_timeout = timeout
+                self._explicit_wait_timeout = timeout
 
         set_explicit_wait(0)
         yield
-        set_explicit_wait(self.explicit_wait_timeout)
+        set_explicit_wait(self._explicit_wait_timeout)
 
     def find_element(self, locator: Locator, should_wait: bool = True) -> WebElement:
         """Find Selenium Webelement with explicit wait
@@ -59,6 +59,6 @@ class CustomSelenium:
             WebElement: Selenium's web element
         """
         with self.toggle_explicit_timeout(should_wait):
-            return wait.WebDriverWait(self._driver, self.explicit_wait_timeout).until(
+            return wait.WebDriverWait(self._driver, self._explicit_wait_timeout).until(
                 EC.visibility_of_element_located(locator)
             )
