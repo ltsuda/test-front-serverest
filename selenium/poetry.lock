@@ -434,6 +434,37 @@ pluggy = ">=0.12,<2.0"
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
 [[package]]
+name = "pytest-rerunfailures"
+version = "11.0"
+description = "pytest plugin to re-run tests to eliminate flaky failures"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest-rerunfailures-11.0.tar.gz", hash = "sha256:cee59e4e6f0d73ae63fba099865314ba9b915b719349541110fa012ffb6efb13"},
+    {file = "pytest_rerunfailures-11.0-py3-none-any.whl", hash = "sha256:b8c535b6c353de8c4b39258216512c64f288e4d349e86877583a08b2f5ea5441"},
+]
+
+[package.dependencies]
+packaging = ">=17.1"
+pytest = ">=5.3"
+
+[[package]]
+name = "pytest-stress"
+version = "1.0.1"
+description = "A Pytest plugin that allows you to loop tests for a user defined amount of time."
+category = "dev"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "pytest-stress-1.0.1.tar.gz", hash = "sha256:d9f15fbf8ce65cd866614b875a6288ad4ae8cd02d29dd1a8d4010f376f226b0c"},
+    {file = "pytest_stress-1.0.1-py3-none-any.whl", hash = "sha256:a728ffe75749030e5b868c85696c954a66b677364098e1ce99648be88bb096da"},
+]
+
+[package.dependencies]
+pytest = ">=3.6.0"
+
+[[package]]
 name = "pytest-xdist"
 version = "3.1.0"
 description = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
@@ -572,4 +603,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "7232ba10e3085bf7ac101a6431e54433a95c7e1b49bb31eb75875f1baf837454"
+content-hash = "630056ff2afa2fe138373059965cf5fb9d689161d2c46a94271ef1951476e6c2"
