@@ -27,18 +27,36 @@ def pytest_addoption(parser):
         help="Choose which browser to run tests, defaults to 'chrome'",
         choices=(Browsers.CHROME, Browsers.EDGE, Browsers.FIREFOX),
     )
+    parser.addoption(
+        "--video-on",
+        action="store_true",
+        default=False,
+        help="Enable video recording",
+    )
 
 
-def select_driver(browser) -> WebDriver:
+def select_driver(browser, record=False) -> WebDriver:
     match browser:
         case Browsers.CHROME:
-            return webdriver.Remote(command_executor=SELENIUM_GRID, options=ChromeOptions())
+            options = ChromeOptions()
+            options.set_capability("se:recordVideo", record)
+            options.set_capability("se:screenResolution", "1920x1080")
+            return webdriver.Remote(command_executor=SELENIUM_GRID, options=options)
         case Browsers.EDGE:
-            return webdriver.Remote(command_executor=SELENIUM_GRID, options=EdgeOptions())
+            options = EdgeOptions()
+            options.set_capability("se:recordVideo", record)
+            options.set_capability("se:screenResolution", "1920x1080")
+            return webdriver.Remote(command_executor=SELENIUM_GRID, options=options)
         case Browsers.FIREFOX:
-            return webdriver.Remote(command_executor=SELENIUM_GRID, options=FirefoxOptions())
+            options = FirefoxOptions()
+            options.set_capability("se:recordVideo", record)
+            options.set_capability("se:screenResolution", "1920x1080")
+            return webdriver.Remote(command_executor=SELENIUM_GRID, options=options)
         case _:
-            return webdriver.Remote(command_executor=SELENIUM_GRID, options=ChromeOptions())
+            options = ChromeOptions()
+            options.set_capability("se:recordVideo", record)
+            options.set_capability("se:screenResolution", "1920x1080")
+            return webdriver.Remote(command_executor=SELENIUM_GRID, options=options)
 
 
 @pytest.fixture(scope="function")
@@ -48,7 +66,8 @@ def auth_driver(request) -> Generator[WebDriver, None, None]:
     """
 
     browser = request.config.getoption("--select-browser")
-    custom_driver: WebDriver = select_driver(browser)
+    record_video = request.config.getoption("--video-on")
+    custom_driver: WebDriver = select_driver(browser, record_video)
 
     custom_driver.maximize_window()
     custom_driver.set_script_timeout(30)
@@ -69,7 +88,8 @@ def driver(request) -> Generator[WebDriver, None, None]:
     """
 
     browser = request.config.getoption("--select-browser")
-    custom_driver: WebDriver = select_driver(browser)
+    record_video = request.config.getoption("--video-on")
+    custom_driver: WebDriver = select_driver(browser, record_video)
 
     custom_driver.maximize_window()
     custom_driver.set_script_timeout(30)
