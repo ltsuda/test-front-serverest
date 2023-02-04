@@ -9,7 +9,6 @@ from selenium.webdriver.remote.webdriver import WebDriver
 @dataclass(kw_only=True)
 class LoginActions:
     driver: WebDriver
-    login_pom: LoginPOM = LoginPOM()
     custom_selenium: CustomSelenium = field(init=False)
 
     def __post_init__(self):
