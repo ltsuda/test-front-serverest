@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-from typing import Generator, LiteralString, Tuple
+from typing import Generator, LiteralString
 
 import selenium.webdriver.support.expected_conditions as EC
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -7,7 +7,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import wait
 
 # Selenium locator (By.identifier, 'selector')
-Locator = Tuple[LiteralString, LiteralString]
+Locator = tuple[LiteralString, str]
 
 
 class CustomSelenium:
