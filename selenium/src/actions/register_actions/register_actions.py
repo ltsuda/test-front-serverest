@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from multiprocessing.connection import wait
 
 from custom_selenium import CustomSelenium
 from lean_pom.register_pom.register_pom import RegisterPOM
@@ -40,4 +41,6 @@ class RegisterActions:
             element.click()
 
     def is_register_as_administrator_selected(self) -> bool:
-        return self.custom_selenium.find_element(RegisterPOM.is_admin).is_selected()
+        return self.custom_selenium.find_element(
+            RegisterPOM.is_admin, should_wait=False
+        ).is_selected()
