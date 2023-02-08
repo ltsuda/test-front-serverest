@@ -9,13 +9,13 @@ from src.model.user import UserProtocol
 
 
 @pytest.fixture(scope="function")
-def get_authorization_token_for(base_url) -> Callable:
+def get_authorization_token_for(backend_url) -> Callable:
     def _login(email: str, password: str) -> str | None:
         token = None
         response = None
         try:
             response = requests.post(
-                f"{base_url}{URL.login}",
+                f"{backend_url}{URL.login}",
                 headers={"monitor": "false"},
                 json={"email": email, "password": password},
             )
@@ -33,7 +33,7 @@ def get_authorization_token_for(base_url) -> Callable:
 
 
 @pytest.fixture(scope="function")
-def create_account_for(base_url) -> Callable:
+def create_account_for(backend_url) -> Callable:
     def _create_account(user: UserProtocol) -> dict:
         response = None
         account = {
@@ -44,7 +44,7 @@ def create_account_for(base_url) -> Callable:
         }
         try:
             response = requests.post(
-                f"{base_url}{URL.users}", headers={"monitor": "false"}, data=account
+                f"{backend_url}{URL.users}", headers={"monitor": "false"}, data=account
             )
             response.raise_for_status()
         except HTTPError as http_err:

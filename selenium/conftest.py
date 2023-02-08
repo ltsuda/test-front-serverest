@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Generator
 
 import pytest
+from src.consts import URL
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -82,7 +83,7 @@ def auth_driver(request) -> Generator[WebDriver, None, None]:
 
 
 @pytest.fixture(scope="function")
-def driver(request) -> Generator[WebDriver, None, None]:
+def driver(request, base_url) -> Generator[WebDriver, None, None]:
     """Create a webdriver instance per test function, so it doesn't use the same browser session
     for more than one test.
     """
@@ -95,8 +96,20 @@ def driver(request) -> Generator[WebDriver, None, None]:
     custom_driver.set_script_timeout(30)
     custom_driver.set_page_load_timeout(30)
     custom_driver.implicitly_wait(0)
-    # Navigate to login
+    custom_driver.get(base_url)
 
     yield custom_driver
 
     custom_driver.quit()
+
+
+@pytest.fixture(scope="session")
+def backend_url():
+    """Backend URL fixture to be make requests directly to the backend API
+
+    This needs to be localhost as pytest is outside of the container application
+
+    Returns:
+        str: backend URL
+    """
+    return f"{URL.external_backend}"
