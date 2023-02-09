@@ -49,7 +49,6 @@ def create_account_for(backend_url) -> Callable:
             assert response.status_code == 201
             response_json = response.json()
             _id = response_json["_id"]
-        user_with_id = UserWithID(user.name, user.email, user.password, _id, user.as_admin)
-        return user_with_id
+        return UserWithID(user.name, user.email, user.password, _id, user.as_admin)
 
     return _create_account
