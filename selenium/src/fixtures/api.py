@@ -5,13 +5,12 @@ import requests
 from consts import URL
 from requests import Response
 from requests.exceptions import HTTPError
-from src.model.user import UserProtocol
+from src.model.user import UserProtocol, UserWithID, UserWithIDProtocol
 
 
 @pytest.fixture(scope="function")
 def get_authorization_token_for(backend_url) -> Callable:
-    def _login(email: str, password: str) -> str | None:
-        token = None
+    def _login(email: str, password: str) -> str:
         response = None
         try:
             response = requests.post(
@@ -24,9 +23,8 @@ def get_authorization_token_for(backend_url) -> Callable:
             if isinstance(response, Response):
                 print(http_err)
             raise http_err
-        else:
-            assert response.status_code == 200
-            token = response.json()["authorization"]
+        assert response.status_code == 200
+        token: str = response.json()["authorization"]
         return token
 
     return _login
@@ -34,17 +32,13 @@ def get_authorization_token_for(backend_url) -> Callable:
 
 @pytest.fixture(scope="function")
 def create_account_for(backend_url) -> Callable:
-    def _create_account(user: UserProtocol) -> dict:
+    def _create_account(user: UserProtocol) -> UserWithIDProtocol:
         response = None
-        account = {
-            "nome": user.name,
-            "email": user.email,
-            "password": user.password,
-            "administrador": "true" if user.as_admin else "false",
-        }
         try:
             response = requests.post(
-                f"{backend_url}{URL.users}", headers={"monitor": "false"}, data=account
+                f"{backend_url}{URL.users}",
+                headers={"monitor": "false"},
+                data=user.data_as_dict(),
             )
             response.raise_for_status()
         except HTTPError as http_err:
@@ -54,7 +48,8 @@ def create_account_for(backend_url) -> Callable:
         else:
             assert response.status_code == 201
             response_json = response.json()
-            account["_id"] = response_json["_id"]
-        return account
+            _id = response_json["_id"]
+        user_with_id = UserWithID(user.name, user.email, user.password, _id, user.as_admin)
+        return user_with_id
 
     return _create_account
