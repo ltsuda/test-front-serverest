@@ -18,8 +18,9 @@ pytest-xdist = "^3.1.0"
 pytest-stress = "^1.0.1"
 pytest-rerunfailures = "^11.0"
 requests = "^2.28.2"
-pytest-base-url = "^2.0.0"
 faker = "^16.6.1"
+allure-pytest = "^2.12.0"
+pytest-base-url = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -57,7 +58,6 @@ extend-exclude = '''
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q"
+addopts = "-ra -q --base-url=http://frontend:3001"
 testpaths = ["tests"]
-base_url = "http://frontend:3001"
 pythonpath = ["src"]
