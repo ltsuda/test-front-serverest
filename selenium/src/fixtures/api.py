@@ -9,7 +9,7 @@ from src.model.user import UserProtocol, UserWithID, UserWithIDProtocol
 
 
 @pytest.fixture(scope="function")
-def get_authorization_token_for(backend_url) -> Callable:
+def get_authorization_token(backend_url) -> Callable:
     def _login(email: str, password: str) -> str:
         response = None
         try:
@@ -31,7 +31,7 @@ def get_authorization_token_for(backend_url) -> Callable:
 
 
 @pytest.fixture(scope="function")
-def create_account_for(backend_url) -> Callable:
+def create_account(backend_url) -> Callable:
     def _create_account(user: UserProtocol) -> UserWithIDProtocol:
         response = None
         try:
