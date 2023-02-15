@@ -85,4 +85,4 @@ class CustomSelenium:
             except TimeoutException:
                 return False
             else:
-                element.is_displayed()
+                return element.is_displayed()
