@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 
 
 @dataclass(init=False)
-class AlertPOM:
+class AlertUI:
     _alert_selector: str = "//div[contains(@class, 'alert')]//span[text()='ERROR_MESSAGE']"
     _close_button_selector: str = "//button[@aria-label='Close']"
 
