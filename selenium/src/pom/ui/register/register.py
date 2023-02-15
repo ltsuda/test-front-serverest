@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 
 
 @dataclass(frozen=True, init=False)
-class RegisterPOM:
+class RegisterUI:
     name: Locator = (By.CSS_SELECTOR, "[data-testid='nome']")
     email: Locator = (By.CSS_SELECTOR, "[data-testid='email']")
     password: Locator = (By.CSS_SELECTOR, "[data-testid='password']")

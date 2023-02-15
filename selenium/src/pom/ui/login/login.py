@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 
 
 @dataclass(frozen=True, init=False)
-class LoginPOM:
+class LoginUI:
     email: Locator = (By.CSS_SELECTOR, "[data-testid='email']")
     password: Locator = (By.CSS_SELECTOR, "[data-testid='senha']")
     login: Locator = (By.CSS_SELECTOR, "[data-testid='entrar']")
