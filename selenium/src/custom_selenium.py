@@ -64,7 +64,7 @@ class CustomSelenium:
                 EC.visibility_of_element_located(locator)
             )
 
-    def is_displayed(self, locator: Locator, *, should_wait: bool = True) -> bool:  # type: ignore
+    def is_displayed(self, locator: Locator, *, should_wait: bool = True) -> bool:
         """Check if element is displayed
 
         It will try to wait to element to be present but not visible, then uses Selenium's function
@@ -86,3 +86,20 @@ class CustomSelenium:
                 return False
             else:
                 return element.is_displayed()
+
+    def has_text(
+        self, locator: Locator, text: str, *, strict: bool = False, should_wait: bool = True
+    ) -> bool:
+        """Check if element has text
+
+        Args:
+            locator (Locator): Selenium locator tuple (By.identifier, selector)
+            text (str): Expected text to be present in element
+            strict (bool): Whether to compare strictly or not
+            should_wait (bool, optional): Whether to use wait until is visible. Defaults to True.
+
+        Returns:
+            bool: if element is displayed or not
+        """
+        element: WebElement = self.find_element(locator, should_wait=should_wait)
+        return element.text == text if strict else text in element.text
