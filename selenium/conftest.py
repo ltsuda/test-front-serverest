@@ -96,7 +96,7 @@ def driver(request, base_url) -> Generator[WebDriver, None, None]:
     custom_driver.set_script_timeout(30)
     custom_driver.set_page_load_timeout(30)
     custom_driver.implicitly_wait(0)
-    custom_driver.get(base_url)
+    custom_driver.get(f"{base_url}{URL.login}")
 
     yield custom_driver
 

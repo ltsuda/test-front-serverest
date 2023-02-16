@@ -15,6 +15,4 @@ class AlertQuery:
         self.custom_selenium: CustomSelenium = CustomSelenium(self.driver)
 
     def is_alert_visible(self, with_text: str) -> bool:
-        return self.custom_selenium.is_displayed(
-            AlertUI.alert_locator(with_text), should_wait=False
-        )
+        return self.custom_selenium.is_displayed(AlertUI.alert_locator(with_text), should_wait=True)

@@ -16,5 +16,5 @@ class RegisterQuery:
 
     def is_register_as_administrator_selected(self) -> bool:
         return self.custom_selenium.find_element(
-            RegisterUI.is_admin, should_wait=False
+            RegisterUI.is_admin, should_wait=True
         ).is_selected()
