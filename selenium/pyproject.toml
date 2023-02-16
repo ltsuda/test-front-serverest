@@ -61,3 +61,13 @@ minversion = "7.0"
 addopts = "-ra -q --base-url=http://frontend:3001"
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = [
+    "login: teste suite",
+    "login_001: test case from login suite",
+    "login_002: test case from login suite",
+    "login_003: test case from login suite",
+    "login_004: test case from login suite",
+    "login_005: test case from login suite",
+    "login_006: test case from login suite",
+    "login_007: test case from login suite",
+]
