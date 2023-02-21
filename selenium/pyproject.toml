@@ -70,4 +70,12 @@ markers = [
     "login_005: test case from login suite",
     "login_006: test case from login suite",
     "login_007: test case from login suite",
+    "register: teste suite",
+    "register_001: test case from register suite",
+    "register_002: test case from register suite",
+    "register_003: test case from register suite",
+    "register_004: test case from register suite",
+    "register_005: test case from register suite",
+    "register_006: test case from register suite",
+    "register_007: test case from register suite",
 ]

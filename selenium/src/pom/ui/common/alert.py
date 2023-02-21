@@ -7,12 +7,15 @@ from selenium.webdriver.common.by import By
 
 @dataclass(init=False)
 class AlertUI:
-    _alert_selector: str = "//div[contains(@class, 'alert')]//span[text()='ERROR_MESSAGE']"
+    _alert_selector: str = (
+        "//div[contains(@class, 'alert')]//span[text()='MESSAGE'] | //div[contains(@class,"
+        " 'alert')]//a[text()='MESSAGE']"
+    )
     _close_button_selector: str = "//button[@aria-label='Close']"
 
     @classmethod
     def _update_alert(cls, message: str) -> str:
-        return cls._alert_selector.replace("ERROR_MESSAGE", message)
+        return cls._alert_selector.replace("MESSAGE", message)
 
     @classmethod
     def alert_locator(cls, with_text: str) -> Locator:
