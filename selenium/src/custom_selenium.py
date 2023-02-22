@@ -103,3 +103,12 @@ class CustomSelenium:
         """
         element: WebElement = self.find_element(locator, should_wait=should_wait)
         return element.text == text if strict else text in element.text
+
+    def url_to_be(self, url: str, *, should_wait: bool = True) -> bool:
+        with self.toggle_explicit_timeout(should_wait):
+            try:
+                return wait.WebDriverWait(self._driver, self._explicit_wait_timeout).until(
+                    EC.url_to_be(url)
+                )
+            except TimeoutException:
+                return False
