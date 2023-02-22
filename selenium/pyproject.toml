@@ -58,7 +58,7 @@ extend-exclude = '''
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q --base-url=http://frontend:3001"
+addopts = "-ra -q"
 testpaths = ["tests"]
 pythonpath = ["src"]
 markers = [
