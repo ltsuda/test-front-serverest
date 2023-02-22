@@ -16,7 +16,6 @@ class TestLogin:
     def test_admin_redirected_to_home(self, driver: WebDriver, admin_account):
         _login_action = login_actions.LoginActions(driver=driver)
         _admin_home = admin_home.AdminHomeQuery(driver=driver)
-
         _login_action.fill_email(admin_account.email)
         _login_action.fill_password(admin_account.password)
         _login_action.click_login()
@@ -38,12 +37,12 @@ class TestLogin:
         assert _user_home.is_store_visible()
 
     @pytest.mark.login_003
-    def test_redirected_to_register(self, driver: WebDriver, base_url):
+    def test_redirected_to_register(self, driver: WebDriver):
         _login_actions = login_actions.LoginActions(driver=driver)
 
         _login_actions.click_register()
 
-        assert driver.current_url == f"{base_url}{URL.register}"
+        assert driver.current_url == f"{URL.base_url}{URL.register}"
 
     @pytest.mark.login_004
     def test_alert_email_is_required(self, driver: WebDriver):

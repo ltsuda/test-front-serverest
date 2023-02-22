@@ -3,6 +3,7 @@ from typing import Generator
 
 import pytest
 from src.consts import URL
+from src.keywords.navigation import Navigator
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -83,7 +84,7 @@ def auth_driver(request) -> Generator[WebDriver, None, None]:
 
 
 @pytest.fixture(scope="function")
-def driver(request, base_url) -> Generator[WebDriver, None, None]:
+def driver(request) -> Generator[WebDriver, None, None]:
     """Create a webdriver instance per test function, so it doesn't use the same browser session
     for more than one test.
     """
@@ -96,7 +97,8 @@ def driver(request, base_url) -> Generator[WebDriver, None, None]:
     custom_driver.set_script_timeout(30)
     custom_driver.set_page_load_timeout(30)
     custom_driver.implicitly_wait(0)
-    custom_driver.get(f"{base_url}{URL.login}")
+    navigator = Navigator(driver=custom_driver)
+    navigator.navigate_to_login(should_assert=True, should_wait=True)
 
     yield custom_driver
 

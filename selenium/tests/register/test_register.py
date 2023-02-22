@@ -5,6 +5,7 @@ import src.pom.query.common.alert as alert_query
 import src.pom.query.register.register as register_query
 import src.pom.query.user_home.user_home as user_home
 from src.consts import URL
+from src.keywords.navigation import Navigator
 
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -12,13 +13,14 @@ from selenium.webdriver.remote.webdriver import WebDriver
 @pytest.mark.register
 class TestLogin:
     @pytest.mark.register_001
-    def test_admin_register_redirected_to_home(self, driver: WebDriver, admin_user, base_url):
-        driver.get(f"{base_url}{URL.register}")
-        admin_data = admin_user.data()
+    def test_admin_register_redirected_to_home(self, driver: WebDriver, admin_user):
         _register_action = register_actions.RegisterActions(driver=driver)
         _register_query = register_query.RegisterQuery(driver=driver)
         _alert_query = alert_query.AlertQuery(driver=driver)
         _admin_home = admin_home.AdminHomeQuery(driver=driver)
+        admin_data = admin_user.data()
+        navigator = Navigator(driver=driver)
+        navigator.navigate_to_register()
 
         _register_action.fill_name(admin_data.name)
         _register_action.fill_email(admin_data.email)
@@ -33,13 +35,14 @@ class TestLogin:
         assert "admin" in driver.current_url
 
     @pytest.mark.register_002
-    def test_user__register_redirected_to_home(self, driver: WebDriver, regular_user, base_url):
-        driver.get(f"{base_url}{URL.register}")
-        user_data = regular_user.data()
+    def test_user__register_redirected_to_home(self, driver: WebDriver, regular_user):
         _register_action = register_actions.RegisterActions(driver=driver)
         _alert_query = alert_query.AlertQuery(driver=driver)
         _register_query = register_query.RegisterQuery(driver=driver)
         _user_home = user_home.UserHomeQuery(driver=driver)
+        user_data = regular_user.data()
+        navigator = Navigator(driver=driver)
+        navigator.navigate_to_register()
 
         _register_action.fill_name(user_data.name)
         _register_action.fill_email(user_data.email)
@@ -52,19 +55,21 @@ class TestLogin:
         assert "admin" not in driver.current_url
 
     @pytest.mark.register_003
-    def test_redirected_to_login(self, driver: WebDriver, base_url):
-        driver.get(f"{base_url}{URL.register}")
+    def test_redirected_to_login(self, driver: WebDriver):
         _register_actions = register_actions.RegisterActions(driver=driver)
+        navigator = Navigator(driver=driver)
+        navigator.navigate_to_register()
 
         _register_actions.click_login()
 
-        assert driver.current_url == f"{base_url}{URL.login}"
+        assert navigator.driver.current_url == f"{URL.base_url}{URL.login}"
 
     @pytest.mark.register_004
-    def test_alert_register_name_is_required(self, driver: WebDriver, base_url):
-        driver.get(f"{base_url}{URL.register}")
+    def test_alert_register_name_is_required(self, driver: WebDriver):
         _register_actions = register_actions.RegisterActions(driver=driver)
         _alert_query = alert_query.AlertQuery(driver=driver)
+        navigator = Navigator(driver=driver)
+        navigator.navigate_to_register()
 
         _register_actions.fill_email("user@provider.com")
         _register_actions.fill_password("password")
@@ -73,10 +78,11 @@ class TestLogin:
         assert _alert_query.is_alert_visible(with_text="Nome é obrigatório")
 
     @pytest.mark.register_005
-    def test_alert_register_email_is_required(self, driver: WebDriver, base_url):
-        driver.get(f"{base_url}{URL.register}")
+    def test_alert_register_email_is_required(self, driver: WebDriver):
         _register_actions = register_actions.RegisterActions(driver=driver)
         _alert_query = alert_query.AlertQuery(driver=driver)
+        navigator = Navigator(driver=driver)
+        navigator.navigate_to_register()
 
         _register_actions.fill_name("John Doe")
         _register_actions.fill_password("password")
@@ -85,10 +91,11 @@ class TestLogin:
         assert _alert_query.is_alert_visible(with_text="Email é obrigatório")
 
     @pytest.mark.register_006
-    def test_alert_register_password_is_required(self, driver: WebDriver, base_url):
-        driver.get(f"{base_url}{URL.register}")
+    def test_alert_register_password_is_required(self, driver: WebDriver):
         _register_actions = register_actions.RegisterActions(driver=driver)
         _alert_query = alert_query.AlertQuery(driver=driver)
+        navigator = Navigator(driver=driver)
+        navigator.navigate_to_register()
 
         _register_actions.fill_name("John Doe")
         _register_actions.fill_email("user@provider.com")
@@ -97,10 +104,11 @@ class TestLogin:
         assert _alert_query.is_alert_visible(with_text="Password é obrigatório")
 
     @pytest.mark.register_007
-    def test_alert_email_already_in_use(self, driver: WebDriver, user_account, base_url):
-        driver.get(f"{base_url}{URL.register}")
+    def test_alert_email_already_in_use(self, driver: WebDriver, user_account):
         _register_actions = register_actions.RegisterActions(driver=driver)
         _alert_query = alert_query.AlertQuery(driver=driver)
+        navigator = Navigator(driver=driver)
+        navigator.navigate_to_register()
 
         _register_actions.fill_name("John Doe")
         _register_actions.fill_email(user_account.email)
