@@ -1,18 +1,22 @@
 from dataclasses import dataclass, field
 
-from custom_selenium import CustomSelenium
-from selenium.webdriver.remote.webdriver import WebDriver
 from src.consts import URL
+from src.custom_selenium import CustomSelenium
+from src.pom.actions.common.alert import AlertActions
 from src.pom.ui.login.login import LoginUI
+
+from selenium.webdriver.remote.webdriver import WebDriver
 
 
 @dataclass(kw_only=True)
 class LoginActions:
     driver: WebDriver
     custom_selenium: CustomSelenium = field(init=False)
+    alert: AlertActions = field(init=False)
 
     def __post_init__(self):
         self.custom_selenium: CustomSelenium = CustomSelenium(self.driver)
+        self.alert: AlertActions = AlertActions(driver=self.driver)
 
     def goto(self) -> str:
         login_url = f"{URL.base_url}{URL.login}"
