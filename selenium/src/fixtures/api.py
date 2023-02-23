@@ -36,7 +36,7 @@ def create_account(backend_url) -> Callable:
         response = None
         try:
             response = requests.post(
-                f"{backend_url}{URL.users}",
+                f"{backend_url}{URL.backend_users}",
                 headers={"monitor": "false"},
                 data=user.data_as_dict(),
             )

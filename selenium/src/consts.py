@@ -1,10 +1,12 @@
-from dataclasses import dataclass
+from enum import StrEnum
 
 
-@dataclass(frozen=True, init=False)
-class URL:
-    external_backend: str = "http://localhost:3000"
-    base_url: str = "http://frontend:3001"
-    login: str = "/login"
-    users: str = "/usuarios"
-    register: str = "/cadastrarusuarios"
+class URL(StrEnum):
+    external_backend = "http://localhost:3000"
+    backend_users = "/usuarios"
+    base_url = "http://frontend:3001"
+    login = "/login"
+    register = "/cadastrarusuarios"
+    user_home = "/admin/home"
+    admin_home = "/home"
+
