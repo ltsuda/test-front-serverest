@@ -3,8 +3,6 @@ from dataclasses import dataclass, field
 from src import factory
 from src.consts import Pages
 from src.custom_selenium import CustomSelenium
-from src.pom.actions.login_actions.login import LoginActions
-from src.pom.actions.register_actions.register import RegisterActions
 
 from selenium.webdriver.remote.webdriver import WebDriver
 
