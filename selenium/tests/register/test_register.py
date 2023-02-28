@@ -3,7 +3,7 @@ import typing
 import pytest
 from src import factory
 from src.consts import URL, Pages
-from src.keywords.navigation import Navigator
+from src.keywords.navigator import Navigator
 
 if typing.TYPE_CHECKING:
     from src.pom.actions.register_actions.register import RegisterActions
@@ -39,9 +39,9 @@ class TestRegister:
         _register_actions.click_register()
 
         assert _register_query.alert.is_alert_visible(with_text="Cadastro realizado com sucesso")
+        assert navigator.url_contains("admin")
         assert _admin_home.has_welcome_message(for_user=admin_data.name)
         assert _admin_home.is_store_description_visible()
-        assert "admin" in driver.current_url
 
     @pytest.mark.register_002
     def test_user__register_redirected_to_home(self, driver: WebDriver, regular_user):
@@ -66,7 +66,7 @@ class TestRegister:
 
         assert _register_query.alert.is_alert_visible(with_text="Cadastro realizado com sucesso")
         assert _user_home.is_store_visible()
-        assert "admin" not in driver.current_url
+        assert navigator.url_contains("admin") is False
 
     @pytest.mark.register_003
     def test_redirected_to_login(self, driver: WebDriver):
@@ -78,7 +78,7 @@ class TestRegister:
 
         _register_actions.click_login()
 
-        assert navigator.driver.current_url == f"{URL.base_url}{URL.login}"
+        assert navigator.url_to_be(f"{URL.base_url}{URL.login}", should_assert=False)
 
     @pytest.mark.register_004
     def test_alert_register_name_is_required(self, driver: WebDriver):

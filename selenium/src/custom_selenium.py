@@ -112,3 +112,12 @@ class CustomSelenium:
                 )
             except TimeoutException:
                 return False
+
+    def url_contains(self, url: str, *, should_wait: bool = True) -> bool:
+        with self.toggle_explicit_timeout(should_wait):
+            try:
+                return wait.WebDriverWait(self._driver, self._explicit_wait_timeout).until(
+                    EC.url_contains(url)
+                )
+            except TimeoutException:
+                return False

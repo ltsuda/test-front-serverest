@@ -3,7 +3,7 @@ from typing import Generator
 
 import pytest
 from src.consts import URL
-from src.keywords.navigation import Navigator
+from src.keywords.navigator import Navigator
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
