@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 
-from custom_selenium import CustomSelenium
+from src import factory
+from src.consts import Pages
+from src.custom_selenium import CustomSelenium
 from src.pom.actions.login_actions.login import LoginActions
 from src.pom.actions.register_actions.register import RegisterActions
 
@@ -14,8 +16,8 @@ class Navigator:
 
     def __post_init__(self):
         self.custom_selenium: CustomSelenium = CustomSelenium(self.driver)
-        self.login_actions: LoginActions = LoginActions(driver=self.driver)
-        self.register_actions: RegisterActions = RegisterActions(driver=self.driver)
+        self.login_actions = factory.ActionsFactory.get(Pages.LOGIN, self.driver)
+        self.register_actions = factory.ActionsFactory.get(Pages.REGISTER, self.driver)
 
     def _expect(self, url: str, *, should_assert: bool = True, should_wait: bool = True):
         at_url: bool = self.custom_selenium.url_to_be(url, should_wait=should_wait)
