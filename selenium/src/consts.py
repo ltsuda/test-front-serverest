@@ -1,4 +1,4 @@
-from enum import StrEnum
+from enum import StrEnum, auto
 
 
 class URL(StrEnum):
@@ -10,3 +10,9 @@ class URL(StrEnum):
     user_home = "/admin/home"
     admin_home = "/home"
 
+
+class Pages(StrEnum):
+    LOGIN = auto()
+    REGISTER = auto()
+    USER_HOME = auto()
+    ADMIN_HOME = auto()
