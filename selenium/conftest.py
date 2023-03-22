@@ -62,28 +62,6 @@ def select_driver(browser, record=False) -> WebDriver:
 
 
 @pytest.fixture(scope="function")
-def auth_driver(request) -> Generator[WebDriver, None, None]:
-    """Create a webdriver instance per test function, so it doesn't use the same browser session
-    for more than one test.
-    """
-
-    browser = request.config.getoption("--select-browser")
-    record_video = request.config.getoption("--video-on")
-    custom_driver: WebDriver = select_driver(browser, record_video)
-
-    custom_driver.maximize_window()
-    custom_driver.set_script_timeout(30)
-    custom_driver.set_page_load_timeout(30)
-    custom_driver.implicitly_wait(0)
-
-    # Login & Authenticate webdriver
-
-    yield custom_driver
-
-    custom_driver.quit()
-
-
-@pytest.fixture(scope="function")
 def driver(request) -> Generator[WebDriver, None, None]:
     """Create a webdriver instance per test function, so it doesn't use the same browser session
     for more than one test.
