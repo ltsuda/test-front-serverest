@@ -1,5 +1,5 @@
 import pytest
-from src.fixtures.api import create_account
+from src.fixtures.api import create_account  # noqa
 from src.keywords.user_data import UserData
 from src.model.user import UserWithIDProtocol
 
@@ -15,10 +15,10 @@ def admin_user() -> UserData:
 
 
 @pytest.fixture(scope="function")
-def user_account(regular_user, create_account) -> UserWithIDProtocol:
+def user_account(regular_user, create_account) -> UserWithIDProtocol:  # noqa
     return create_account(regular_user.data())
 
 
 @pytest.fixture(scope="function")
-def admin_account(admin_user, create_account) -> UserWithIDProtocol:
+def admin_account(admin_user, create_account) -> UserWithIDProtocol:  # noqa
     return create_account(admin_user.data())
