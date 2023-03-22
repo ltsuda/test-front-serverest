@@ -7,8 +7,8 @@ class URL(StrEnum):
     base_url = "http://frontend:3001"
     login = "/login"
     register = "/cadastrarusuarios"
-    user_home = "/admin/home"
-    admin_home = "/home"
+    user_home = "/home"
+    admin_home = "/admin/home"
 
 
 class Pages(StrEnum):
