@@ -9,28 +9,6 @@ from src.model.user import UserProtocol, UserWithID, UserWithIDProtocol
 
 
 @pytest.fixture(scope="function")
-def get_authorization_token(backend_url) -> Callable:
-    def _login(email: str, password: str) -> str:
-        response = None
-        try:
-            response = requests.post(
-                f"{backend_url}{URL.login}",
-                headers={"monitor": "false"},
-                json={"email": email, "password": password},
-            )
-            response.raise_for_status()
-        except HTTPError as http_err:
-            if isinstance(response, Response):
-                print(http_err)
-            raise http_err
-        assert response.status_code == 200
-        token: str = response.json()["authorization"]
-        return token
-
-    return _login
-
-
-@pytest.fixture(scope="function")
 def create_account(backend_url) -> Callable:
     def _create_account(user: UserProtocol) -> UserWithIDProtocol:
         response = None
