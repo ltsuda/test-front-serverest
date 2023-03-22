@@ -1,11 +1,11 @@
 from src.consts import Pages
 from src.pom.actions.login_actions import login as login_actions
 from src.pom.actions.register_actions import register as register_actions
+from src.pom.actions.admin_home_actions import admin_home as admin_home_actions
 from src.pom.query.admin_home import admin_home as admin_home_query
 from src.pom.query.login import login as login_query
 from src.pom.query.register import register as register_query
 from src.pom.query.user_home import user_home as home_query
-
 from selenium.webdriver.remote.webdriver import WebDriver
 
 
@@ -29,6 +29,8 @@ class ActionsFactory:
                 return login_actions.LoginActions(driver=driver)
             case Pages.REGISTER:
                 return register_actions.RegisterActions(driver=driver)
+            case Pages.ADMIN_HOME:
+                return admin_home_actions.AdminHomeActions(driver=driver)
             case _:
                 return login_actions.LoginActions(driver=driver)
 
