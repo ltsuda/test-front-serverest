@@ -3,7 +3,7 @@
 
 Frontend Test Automation
 
-- :pause_button:  Cypress - IN PROGRESS
+- :pause_button:  Cypress - TODO
 - :pause_button: Playwright - TODO
 - :fast_forward: Selenium - DONE
 
